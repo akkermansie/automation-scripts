@@ -1,35 +1,35 @@
-import pyodbc
+import pyodbc, sys, psutil
+
 con = pyodbc.connect('DRIVER={SQL Server};SERVER=automation-maf.database.windows.net,1433', user='marif@automation-maf', password='P@ssw0rd', database='monitoring')
 c=con.cursor()
 
-#CREATE DB TABLE
-# test = (
-#   """
-#   CREATE TABLE monitor
-#   (
-#   Hostname varchar(255),
-#   CPU varchar(255),
-#   HDD varchar(255),
-#   Network varchar(255),
-#   Memory varchar(255),
-#   )
-#   """)
+def function():
+    pass
+    # if sys.platform.startswith('linux'):
+    # elif sys.platform.startswith('win32'):
 
-#EXECUTE TABLE INTO DB
-# c.execute(test)
+#cpu percentage 5 samples with 1 sec interva;
+def cpu_usage():
+    for x in range(5):
+        cpu = (psutil.cpu_percent(interval=1))
+        print ('Cpu:',cpu,'% used')
+cpu_usage()
 
-#EXECUTE DATA INTO TABLE
-#  c.execute("INSERT into monitor values('client1', 'cannabichstraat', 'Tilburg', 'Breda', 'Rotterdam')")
+#memory percentage
+def mem_usage():
+    for x in range(1):
+        memory = (str(psutil.virtual_memory().percent))
+        print ('Memory: '+memory+'% used')
+mem_usage()
 
-#SELECT ALL DATA FROM TABLE MONITOR
-# c.execute("SELECT * from monitor")
-# print("EERSTE:",c.fetchone())
+#disk percentage
+def disk_usage():
+    for x in range(1):
+        disk = str(psutil.disk_usage('/').percent)
+        print ('Disk: ',disk+'% used')
+disk_usage()
 
-# DELETE TABLE
-#c.execute("DROP TABLE persons")
-
-#COMMIT CHANGES
-#con.commit()
-
-#CLOSE CONNECTION WITH DB
-#con.close()
+#network percentage
+def network_usage():
+    pass
+#wat gaan we monitoren??
