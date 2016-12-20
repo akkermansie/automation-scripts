@@ -11,3 +11,5 @@ Smartcard.withdraw(personal_ov_1)
 
 print(personal_ov_1)
 #print(personal_ov_2)
+
+wijziging
