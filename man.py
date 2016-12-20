@@ -22,7 +22,7 @@ import pyodbc
 #     cur.close()
 #     print ("Table created")
     
-class Monitoring:
+class Monitoring():
     ''''This is the management script for the monitoring application'''
 
     def db_connection(self):
