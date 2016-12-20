@@ -26,7 +26,7 @@ c=con.cursor()
 # print("EERSTE:",c.fetchone())
 
 # DELETE TABLE
-# c.execute("DROP TABLE persons")
+#c.execute("DROP TABLE persons")
 
 #COMMIT CHANGES
 #con.commit()
