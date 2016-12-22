@@ -2,6 +2,8 @@ import pyodbc, socket, matplotlib.pyplot as plt
 con = pyodbc.connect('DRIVER={SQL Server};SERVER=automation-maf.database.windows.net,1433', user='marif@automation-maf', password='P@ssw0rd', database='monitoring')
 cur=con.cursor()
 
+
+
 def create_table():
 #CREATE DB TABLE
     if cur.tables(table='monitor', tableType ='TABLE').fetchone():
@@ -22,8 +24,24 @@ def create_table():
         cur.close()
         print ("Table created")
 
-def make_diagram():
-    
+# data = cur.execute("SELECT hostname, avg(cpu), avg(Memory), avg(HDD) from monitor GROUP BY Hostname").fetchall()
+# print (data)
+
+def create_list():
+    cur.execute("SELECT DISTINCT hostname from monitor")
+    host_data = cur.fetchall()
+    host_list = []
+    for index in range(len(host_data)):
+        host_list.append(host_data[index][0])
+    return (host_list)
+
+
+def get_hostname():
+    hostnames = create_list()
+    for hostname in hostnames:
+        data = cur.execute("SELECT Hostname, CPU, Memory, HDD from monitor WHERE Hostname='%s'"%(hostname)).fetchall()
+        print (data)
+get_hostname()
 
 
 # class Monitoring():
