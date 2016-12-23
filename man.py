@@ -2,8 +2,6 @@ import pyodbc, socket, matplotlib.pyplot as plt
 con = pyodbc.connect('DRIVER={SQL Server};SERVER=automation-maf.database.windows.net,1433', user='marif@automation-maf', password='P@ssw0rd', database='monitoring')
 cur=con.cursor()
 
-
-
 def create_table():
 #CREATE DB TABLE
     if cur.tables(table='monitor', tableType ='TABLE').fetchone():
@@ -23,27 +21,6 @@ def create_table():
         cur.commit()
         cur.close()
         print ("Table created")
-
-# data = cur.execute("SELECT hostname, avg(cpu), avg(Memory), avg(HDD) from monitor GROUP BY Hostname").fetchall()
-# print (data)
-
-# def create_list():
-#     cur.execute("SELECT DISTINCT hostname from monitor")
-#     host_data = cur.fetchall()
-#     host_list = []
-#     for index in range(len(host_data)):
-#         host_list.append(host_data[index][0])
-#     return (host_list)
-#
-#
-# def get_clients_data():
-#     hostnames = create_list()
-#     for hostname in hostnames:
-#         data = cur.execute("SELECT Hostname, CPU, Memory, HDD from monitor WHERE Hostname='%s'"%(hostname)).fetchall()
-#         marco = (data[:])
-#         print (marco)
-#         return marco
-# get_clients_data()
 
 def laptop_arif():
     query_CPU= cur.execute("SELECT DateCreated, CPU FROM monitor WHERE Hostname='LAPTOP-ARIF'").fetchall()
@@ -65,10 +42,7 @@ def laptop_arif():
     plt.title("LAPTOP-ARIF")
     plt.show()
 
-
-
 laptop_arif()
-
 
 
 # def laptop_arif():
