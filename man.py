@@ -26,21 +26,26 @@ def laptop_arif():
     query_CPU= cur.execute("SELECT DateCreated, CPU FROM monitor WHERE Hostname='LAPTOP-ARIF'").fetchall()
     query_MEM= cur.execute("SELECT DateCreated, Memory FROM monitor WHERE Hostname='LAPTOP-ARIF'").fetchall()
     query_HDD= cur.execute("SELECT DateCreated, HDD FROM monitor WHERE Hostname='LAPTOP-ARIF'").fetchall()
-    CPU = [(elem1,elem2) for elem1, elem2 in query_CPU]
-    MEM = [(elem1,elem2) for elem1, elem2 in query_MEM]
-    HDD = [(elem1,elem2) for elem1, elem2 in query_HDD]
+    DateCreated = [x[0] for x in query_CPU]
+    CPU_Y = [y[1] for y in query_CPU]
+    MEM_Y = [y[1] for y in query_MEM]
+    HDD_Y = [y[1] for y in query_HDD]
 
-    plt.plot(*zip(*CPU))
+    plt.plot(DateCreated,CPU_Y)
     plt.title("LAPTOP-ARIF")
+    plt.grid(True)
+    plt.savefig('test.png')
     plt.show()
 
-    plt.plot(*zip(*MEM))
-    plt.title("LAPTOP-ARIF")
-    plt.show()
 
-    plt.plot(*zip(*HDD))
-    plt.title("LAPTOP-ARIF")
-    plt.show()
+    # plt.plot(*zip(*MEM))
+    # plt.title("LAPTOP-ARIF")
+    # plt.grid(True)
+    # plt.show()
+    #
+    # plt.plot(*zip(*HDD))
+    # plt.title("LAPTOP-ARIF")
+    # plt.show()
 
 laptop_arif()
 
