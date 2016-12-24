@@ -1,6 +1,9 @@
 import pyodbc, socket, matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+
 con = pyodbc.connect('DRIVER={SQL Server};SERVER=automation-maf.database.windows.net,1433', user='marif@automation-maf', password='P@ssw0rd', database='monitoring')
 cur=con.cursor()
+dates = mdates.DateFormatter('%m-%d %H:%M:%S')
 
 def create_table():
 #CREATE DB TABLE
@@ -23,43 +26,55 @@ def create_table():
         print ("Table created")
 
 def laptop_arif():
+# Database query
     query_CPU= cur.execute("SELECT DateCreated, CPU FROM monitor WHERE Hostname='LAPTOP-ARIF'").fetchall()
     query_MEM= cur.execute("SELECT DateCreated, Memory FROM monitor WHERE Hostname='LAPTOP-ARIF'").fetchall()
     query_HDD= cur.execute("SELECT HDD FROM monitor WHERE Hostname='LAPTOP-ARIF' ORDER BY DateCreated DESC").fetchone()
-    DateCreated = [x[0] for x in query_CPU]
+    Date_CPU = [x[0] for x in query_CPU]
     CPU_Y = [y[1] for y in query_CPU]
+    Date_MEM = [x[0] for x in query_MEM]
     MEM_Y = [y[1] for y in query_MEM]
     HDD_STR = ("".join(map(str, query_HDD)))
     HDD_INT = int(HDD_STR)
 
-## CPU GRAPH ##
-    # plt.plot(DateCreated,CPU_Y)
-    # plt.title("LAPTOP-ARIF")
-    # plt.grid(True)
-    # plt.savefig('test.png')
-    # plt.show()
+# CPU GRAPH
+    fig, ax = plt.subplots()
+    fig.suptitle("Laptop-Arif", fontsize=20)
+    fig.text(0.5, 0.010,'Timestamp',fontsize=20, ha='center')
+    fig.text(0.04, 0.5, 'CPU %Used', fontsize=20,va='center', rotation='vertical')
+    plt.plot(Date_CPU,CPU_Y)
+    ax.xaxis.set_major_formatter(dates)
+    plt.grid(True)
+    fig.autofmt_xdate()
+    plt.show()
 
-## MEMORY GRAPH ##
-    # plt.plot(*zip(*MEM))
-    # plt.title("LAPTOP-ARIF")
-    # plt.grid(True)
-    # plt.show()
+# MEMORY GRAPH
+    fig, ax = plt.subplots()
+    fig.suptitle("Laptop-Arif", fontsize=20)
+    fig.text(0.5, 0.010,'Timestamp',fontsize=20, ha='center')
+    fig.text(0.04, 0.5, 'Memory %Used', fontsize=20,va='center', rotation='vertical')
+    plt.plot(Date_MEM,MEM_Y)
+    ax.xaxis.set_major_formatter(dates)
+    plt.grid(True)
+    fig.autofmt_xdate()
+    plt.show()
 
-## HDD PIE CHART ##
-    # labels = ('Used space', 'Free space')
-    # sizes = (HDD_INT,100-HDD_INT)
-    # plt.title("LAPTOP-ARIF")
-    # colors = ('orange', 'yellowgreen')
-    # plt.pie(sizes,
-    #     labels=labels,
-    #     colors=colors,
-    #     autopct='%1.1f%%',
-    #     shadow=True,
-    #     startangle=70
-    #     )
-    # plt.axis('equal')
-    # plt.tight_layout()
-    # plt.show()
+# HDD PIE CHART
+    labels = ('Used space', 'Free space')
+    sizes = (HDD_INT,100-HDD_INT)
+    plt.title("LAPTOP-ARIF")
+    colors = ('orange', 'yellowgreen')
+    plt.pie(sizes,
+        labels=labels,
+        colors=colors,
+        autopct='%1.1f%%',
+        shadow=True,
+        startangle=70
+        )
+    plt.axis('equal')
+    plt.tight_layout()
+    plt.show()
+
 laptop_arif()
 
 # def laptop_arif():
