@@ -45,8 +45,11 @@ def laptop_arif():
     plt.plot(Date_CPU,CPU_Y)
     ax.xaxis.set_major_formatter(dates)
     plt.grid(True)
+    plt.ylim(0,100)
     fig.autofmt_xdate()
-    plt.show()
+    plt.savefig('laptop-arif-cpu.png')
+    plt.cla()
+    plt.clf()
 
 # MEMORY GRAPH
     fig, ax = plt.subplots()
@@ -56,13 +59,16 @@ def laptop_arif():
     plt.plot(Date_MEM,MEM_Y)
     ax.xaxis.set_major_formatter(dates)
     plt.grid(True)
+    plt.ylim(0,100)
     fig.autofmt_xdate()
-    plt.show()
+    plt.savefig('laptop-arif-mem.png')
+    plt.cla()
+    plt.clf()
 
 # HDD PIE CHART
     labels = ('Used space', 'Free space')
     sizes = (HDD_INT,100-HDD_INT)
-    plt.title("LAPTOP-ARIF")
+    plt.title("Laptop-Arif", fontsize=20)
     colors = ('orange', 'yellowgreen')
     plt.pie(sizes,
         labels=labels,
@@ -73,7 +79,9 @@ def laptop_arif():
         )
     plt.axis('equal')
     plt.tight_layout()
-    plt.show()
+    plt.savefig('laptop-arif-hdd.png')
+    plt.cla()
+    plt.clf()
 
 laptop_arif()
 
