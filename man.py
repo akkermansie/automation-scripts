@@ -30,6 +30,7 @@ def create_table():
         cur.commit()
         cur.close()
         print ("Table created")
+create_table()
 
 def laptop_arif():
 # Database query
@@ -53,7 +54,7 @@ def laptop_arif():
     plt.grid(True)
     plt.ylim(0,100)
     fig.autofmt_xdate()
-    plt.savefig('laptop-arif-cpu.png')
+    plt.savefig('/home/admin/django/static/sitefiles/img/linux-client-cpu.png')
     plt.cla()
     plt.clf()
 
@@ -67,7 +68,7 @@ def laptop_arif():
     plt.grid(True)
     plt.ylim(0,100)
     fig.autofmt_xdate()
-    plt.savefig('laptop-arif-mem.png')
+    plt.savefig('/home/admin/django/static/sitefiles/img/linux-client-memory.png')
     plt.cla()
     plt.clf()
 
@@ -85,8 +86,7 @@ def laptop_arif():
         )
     plt.axis('equal')
     plt.tight_layout()
-    plt.savefig('laptop-arif-hdd.png')
+    plt.savefig('/home/admin/django/static/sitefiles/img/linux-client-hdd.png')
     plt.cla()
     plt.clf()
-
 laptop_arif()
