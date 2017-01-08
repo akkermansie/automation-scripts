@@ -4,13 +4,10 @@ except ImportError:
     raise ImportError("Packages could not be imported")
 
 try:
-    con = pyodbc.connect('DRIVER={ODBC Driver 13 for SQL Server}};SERVER=automation-maf.database.windows.net,1433', user='marif@automation-maf', password='P@ssw0rd', database='monitoring')
+    con = pyodbc.connect('DRIVER={ODBC Driver 13 for SQL Server};SERVER=automation-maf.database.windows.net,1433', user='marif@automation-maf', password='P@ssw0rd', database='monitoring')
     c=con.cursor()
 except Exception as db_connection:
     print("Er gaat iets mis. Foutmelding: %s" %(db_connection))
-
-    # if sys.platform.startswith('linux'):
-    # elif sys.platform.startswith('win32'):
 
 def mon_loop():
     for x in range(1):
@@ -22,7 +19,6 @@ def mon_loop():
         c.execute("INSERT into monitor values(?,?,?,?,?)",hostname,cpu,memory,disk,date)
         c.commit()
         time.sleep(30)
-#c.execute("DROP table monitor")
 
 while True:
     mon_loop()

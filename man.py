@@ -1,8 +1,14 @@
-import pyodbc, socket, matplotlib.pyplot as plt
-import matplotlib.dates as mdates
+try:
+    import pyodbc, socket, matplotlib.pyplot as plt, matplotlib.dates as mdates
+except ImportError:
+    raise ImportError("Packages could not be imported")
 
-con = pyodbc.connect('DRIVER={SQL Server};SERVER=automation-maf.database.windows.net,1433', user='marif@automation-maf', password='P@ssw0rd', database='monitoring')
-cur=con.cursor()
+try:
+    con = pyodbc.connect('DRIVER={ODBC Driver 13 for SQL Server};SERVER=automation-maf.database.windows.net,1433', user='marif@automation-maf', password='P@ssw0rd', database='monitoring')
+    cur=con.cursor()
+except Exception as db_connection:
+    print("Er gaat iets mis. Foutmelding: %s" %(db_connection))
+
 dates = mdates.DateFormatter('%m-%d %H:%M:%S')
 
 def create_table():
@@ -84,47 +90,3 @@ def laptop_arif():
     plt.clf()
 
 laptop_arif()
-
-# def laptop_arif():
-#     hostname= cur.execute("SELECT Hostname FROM monitor WHERE Hostname='LAPTOP-ARIF'").fetchone()
-#     arif_hostname = hostname[0]
-#     return arif_hostname
-#
-# def cpu_arif():
-#     CPU= cur.execute("SELECT CPU FROM monitor WHERE Hostname='LAPTOP-ARIF'").fetchall()
-#     arif_cpu = CPU[1:]
-#     return arif_cpu
-
-
-# arif_hostname = laptop_arif()
-# arif_cpu = cpu_arif()
-# print (arif_hostname)
-# print (arif_cpu)
-
-# class Monitoring():
-#     ''''This is the management script for the monitoring application'''
-#
-#     def db_connection(self):
-#         ''''Set the database connection'''
-#         self.conn = pyodbc.connect('DRIVER={SQL Server};SERVER=automation-maf.database.windows.net,1433', user='marif@automation-maf', password='P@ssw0rd', database='monitoring')
-#         self.cur = self.conn.cursor
-#
-#     def check_table(self):
-#         '''Set the database Table'''
-#         if self.cur.tables(table='monitor', tableType ='TABLE').fetchone():
-#             print ("Table exists")
-#         else:
-#             data = ("""
-#                               CREATE TABLE monitor
-#                               (
-#                               Hostname varchar(255),
-#                               CPU varchar(255),
-#                               HDD varchar(255),
-#                               Network varchar(255),
-#                               Memory varchar(255),
-#                               )
-#                               """)
-#             self.cur.execute(data)
-#             self.cur.commit()
-#             self.cur.close()
-#

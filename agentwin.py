@@ -9,9 +9,6 @@ try:
 except Exception as db_connection:
     print("Er gaat iets mis. Foutmelding: %s" %(db_connection))
 
-    # if sys.platform.startswith('linux'):
-    # elif sys.platform.startswith('win32'):
-
 def mon_loop():
     for x in range(1):
         hostname = (socket.gethostname())
@@ -22,7 +19,6 @@ def mon_loop():
         c.execute("INSERT into monitor values(?,?,?,?,?)",hostname,cpu,memory,disk,date)
         c.commit()
         time.sleep(30)
-#c.execute("DROP table monitor")
 
 while True:
     mon_loop()
