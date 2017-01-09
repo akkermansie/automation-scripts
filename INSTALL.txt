@@ -7,3 +7,6 @@ Linux:
 2. Voor het agent script op Linux is internet vereist voor de connectie naar de Microsoft Azure SQL database. Het script heeft 
 
 Windows:
+1. Een nieuwe Windows client kan geinstalleerd worden dmv PXE boot. Tijdens de installatie hoeft enkel de hostname van de nieuwe client opgegeven te worden.
+2. Nadat de installatie van de client voltooid is moet de Windows DSC config file uitgevoegd worden met Powershell. Pas in deze configuratiefile de laatste regel aan met de hostname van de nieuw geïnstalleerde client.
+3. Reboot na het uitvoeren van de Windows DSC config file de client. De monitorings agent zal op de achtergrond uitgevoerd worden.
