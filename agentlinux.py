@@ -1,10 +1,16 @@
 try:
-    import pyodbc, psutil, socket, datetime, time
+    import configparser, pyodbc, psutil, socket, datetime, time
 except ImportError:
     raise ImportError("Packages could not be imported")
 
+config = configparser.ConfigParser()
+config.read("/tmp/config.ini")
+username = config.get("configuration","username")
+password = config.get("configuration","password")
+database = config.get("configuration","database")
+
 try:
-    con = pyodbc.connect('DRIVER={ODBC Driver 13 for SQL Server};SERVER=automation-maf.database.windows.net,1433', user='marif@automation-maf', password='P@ssw0rd', database='monitoring')
+    con = pyodbc.connect('DRIVER={ODBC Driver 13 for SQL Server};SERVER=automation-maf.database.windows.net,1433', user=username, password=password, database=database)
     c=con.cursor()
 except Exception as db_connection:
     print("Er gaat iets mis. Foutmelding: %s" %(db_connection))
@@ -21,4 +27,4 @@ def mon_loop():
         time.sleep(30)
 
 while True:
-    mon_loop()
+    mon_loop()    
