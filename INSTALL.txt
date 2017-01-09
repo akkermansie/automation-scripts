@@ -1,0 +1,9 @@
+Installatiehandleiding monitoringsysteem MAF
+Door: Arif Akkermans, Marco Ariëns
+Klas: V2A
+
+Linux:
+1. Om het management script te installeren zijn de volgende packages nodig: os, pyodbc, matplotlib
+2. Voor het agent script op Linux is internet vereist voor de connectie naar de Microsoft Azure SQL database. Het script heeft 
+
+Windows:
