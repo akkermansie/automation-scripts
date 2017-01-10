@@ -1,20 +1,24 @@
+### Import required modules ###
 try:
-    import configparser, pyodbc, psutil, socket, datetime, time
+    import pyodbc, psutil, socket, datetime, time, configparser
 except ImportError:
     raise ImportError("Packages could not be imported")
 
+### ConfigParser config for the Database connection ###
 config = configparser.ConfigParser()
 config.read("/tmp/config.ini")
 username = config.get("configuration","username")
 password = config.get("configuration","password")
 database = config.get("configuration","database")
 
+### MS SQL Database Connection ###
 try:
     con = pyodbc.connect('DRIVER={ODBC Driver 13 for SQL Server};SERVER=automation-maf.database.windows.net,1433', user=username, password=password, database=database)
     c=con.cursor()
 except Exception as db_connection:
     print("Er gaat iets mis. Foutmelding: %s" %(db_connection))
-
+	
+### This function collects information about the hostname, cpu, memory, disk and date and store the information in the Azure Database ###
 def mon_loop():
     for x in range(1):
         hostname = (socket.gethostname())
@@ -26,5 +30,6 @@ def mon_loop():
         c.commit()
         time.sleep(30)
 
+### Infinite loop ###
 while True:
     mon_loop()    
