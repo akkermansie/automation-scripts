@@ -46,12 +46,9 @@ copy-configfile:
     - source: salt://agent/config.ini
     - mode: 777 
 
-agent-cron:
-  cron.present:
-    - name: python3.5 /tmp/agent.py
-    - user: root
-    - identifier: AgentScript
-    - special: '@reboot'
+/var/spool/cron/root:
+  file.append:
+    - text: "@reboot python3.5 /tmp/agent.py"
 
 reboot-pc:
   cmd.run:
