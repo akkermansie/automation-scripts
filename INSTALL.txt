@@ -3,10 +3,11 @@ Door: Arif Akkermans, Marco Ariëns
 Klas: V2A
 
 Linux:
-1. Om het management script te installeren zijn de volgende packages nodig: os, pyodbc, matplotlib
-2. Voor het agent script op Linux is internet vereist voor de connectie naar de Microsoft Azure SQL database. Het script heeft 
+1. Een nieuwe Windows client kan geinstalleerd worden dmv PXE boot. Tijdens de installatie hoeft niets opgegeven te worden.
+2. Nadat de installatie van de client is voltooid moet op de Linux Salt server de Statefile "Agent" uitgevoerd worden. Deze statefile installeerd Python35, python packages, en configureerd de cronjob voor het agent script. De de reboot is de client klaar en draait het agent script.
+3. Om Owncloud te configureren moet op de Linux Salt server de states Owncloud, MariaDB en Webserver uitgevoerd worden.
 
 Windows:
 1. Een nieuwe Windows client kan geinstalleerd worden dmv PXE boot. Tijdens de installatie hoeft enkel de hostname van de nieuwe client opgegeven te worden.
-2. Nadat de installatie van de client voltooid is moet de Windows DSC config file uitgevoegd worden met Powershell. Pas in deze configuratiefile de laatste regel aan met de hostname van de nieuw geïnstalleerde client.
-3. Reboot na het uitvoeren van de Windows DSC config file de client. De monitorings agent zal op de achtergrond uitgevoerd worden.
+2. Nadat de installatie van de client is voltooid is moet de Windows DSC config file uitgevoerd worden met Powershell. Pas in deze configuratiefile eventueel de laatste regel aan met de hostname van de nieuw geïnstalleerde client.
+3. Reboot na het uitvoeren van de Windows DSC config file de client. De monitoringsagent zal na elke herstart op de achtergrond uitgevoerd worden.
